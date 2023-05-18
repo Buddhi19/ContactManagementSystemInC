@@ -32,6 +32,7 @@ void printspace(int);
 void addnewcontact();
 void searchcontact();
 void serachbyphone();
+void searchbyname();
 //++++++++++++++++++++++++++++++++++++++++ END OF GLOBAL FUNCTIONS +++++++++++++++++++++++++++++++++++++++
 
 //=================================== DECLARATION OF DETAILS =============================================
@@ -214,7 +215,7 @@ void searchcontact()
     printf("-----------------------------------------------------------------------------------------------------------------\n");
     printf("SEARCH DETAILS\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
-    printf("| TO SEARCH BY PHONE NUMBER ENTER 1 | TO SEARCH BY NAME ENTER 0 | TO GOBACK TO MAIN MENU ENTER -1 |\n");
+    printf("| TO SEARCH BY PHONE NUMBER ENTER 0 | TO SEARCH BY NAME ENTER 1 | TO GOBACK TO MAIN MENU ENTER -1 |\n");
     int n=readint();
     switch (n)
     {
@@ -247,15 +248,34 @@ void serachbyphone()
             printf("STUDENT NAME - %s\n",students[i].name);
             printf("STUDENT ADDRESS - %s\n",students[i].address);
             printf("STUDENT EMAIL - %s\n",students[i].email);
-            break;
+            searchcontact();
 
         }
     }
     printf("NO RESULT FOUND.\n");
+    searchcontact();
 
 }
 
 void searchbyname()
 {
+    char studentname[20];
+    printf("ENTER STUDENT NAME - ");
+    scanf("%s",studentname);
+    printf("\nSEARCHING...\n\n");
 
+    for(int i=0;i<TOTAL_STUDENTS;i++)
+    {
+        if(strcmp(studentname,students[i].name)==0)
+        {
+            printf("STUDENT PHONE -+94%s\n",students[i].phone);
+            printf("STUDENT ADDRESS - %s\n",students[i].address);
+            printf("STUDENT EMAIL - %s\n",students[i].email);
+            printf("\n");
+            searchcontact();
+
+        }
+    }
+    printf("NO RESULT FOUND.\n");
+    searchcontact();
 }
