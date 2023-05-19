@@ -37,6 +37,7 @@ void deleteentry();
 void deletebyname();
 void delete(int);
 void deletebyphone();
+void add2file();
 //++++++++++++++++++++++++++++++++++++++++ END OF LOCAL FUNCTIONS +++++++++++++++++++++++++++++++++++++++
 
 //=================================== DECLARATION OF DETAILS =============================================
@@ -52,9 +53,9 @@ void UI()
     printf("CONTACT MANAGMENT SYSTEM\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
 
-    printf("0. QUIT\n1. ADD A NEW CONTACT\n2. LIST ALL CONTACTS\n3. SEARCH FOR CONTACT\n4. DELETE A CONTACT\n");
+    printf("0. QUIT\n1. ADD A NEW CONTACT\n2. LIST ALL CONTACTS\n3. SEARCH FOR CONTACT\n4. DELETE A CONTACT\n5. TAKE THE DETAILS TO A TXT FILE\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
-    printf("SELECT AN OPTION[0-4]\n");
+    printf("SELECT AN OPTION[0-5]\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
 
 }
@@ -122,6 +123,9 @@ void handleoption(int option){
         break;
     case 4:
         deleteentry();
+        return;
+    case 5:
+        add2file();
         return;
     default:
         return invalidoption();
@@ -366,4 +370,60 @@ void deletebyphone()
     }
     printf("NO RESULT FOUND.\n");
     return deleteentry();
+}
+
+
+
+void add2file()
+{
+    FILE *fptr;
+    
+    fptr=fopen("D:\\Semester 4\\CO253 - Introduction to Programming and Networking for Electrical Engineering\\Project\\ContactManagementSystemInC\\output.txt","w");
+
+    fprintf(fptr,"LIST OF ALL CONTACTS\n");
+    fprintf(fptr,"-----------------------------------------------------------------------------------------------------------------\n");
+    fprintf(fptr,"|   PHONE   ");
+    fprintf(fptr,"|        NAME       ");
+    fprintf(fptr,"|                       ADDRESS                   ");
+    fprintf(fptr,"|              EMAIL          |\n");
+    fprintf(fptr,"-----------------------------------------------------------------------------------------------------------------\n");
+
+
+    for(int i=0;i<TOTAL_STUDENTS;i++)
+    {
+        fprintf(fptr,"|");
+        fprintf(fptr," %s",students[i].phone);
+        int phonelength=10-strlen(students[i].phone);
+        for(int k=0;k<phonelength;k++){
+            fprintf(fptr," ");
+        }
+
+        fprintf(fptr,"|");
+        fprintf(fptr," %s",students[i].name);
+        int namelength=18-strlen(students[i].name);
+        for(int k=0;k<namelength;k++){
+            fprintf(fptr," ");
+        }
+
+        fprintf(fptr,"|");
+        fprintf(fptr," %s",students[i].address);
+        int addresslength=48-strlen(students[i].address);
+        for(int k=0;k<addresslength;k++){
+            fprintf(fptr," ");
+        }
+
+        fprintf(fptr,"|");
+        fprintf(fptr," %s",students[i].email);
+        int emaillength=28-strlen(students[i].email);
+        for(int k=0;k<emaillength;k++){
+            fprintf(fptr," ");
+        }
+
+        fprintf(fptr,"|\n");
+
+
+    }
+    fprintf(fptr,"-----------------------------------------------------------------------------------------------------------------\n");
+    fclose(fptr);
+
 }
