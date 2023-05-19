@@ -21,7 +21,7 @@ typedef struct
 
 // +++++++++++++++++++++++++++++++++++ END OF DECLARATION OF STRUCTURES +++++++++++++++++++++++++++++++++++
 
-//==================================== DECLARATION OF GLOBAL FUNCTIONS ===================================
+//==================================== DECLARATION OF LOCAL FUNCTIONS ===================================
 int readint();
 char readchar();
 int char2int(char);
@@ -33,7 +33,11 @@ void addnewcontact();
 void searchcontact();
 void serachbyphone();
 void searchbyname();
-//++++++++++++++++++++++++++++++++++++++++ END OF GLOBAL FUNCTIONS +++++++++++++++++++++++++++++++++++++++
+void deleteentry();
+void deletebyname();
+void delete(int);
+void deletebyphone();
+//++++++++++++++++++++++++++++++++++++++++ END OF LOCAL FUNCTIONS +++++++++++++++++++++++++++++++++++++++
 
 //=================================== DECLARATION OF DETAILS =============================================
 
@@ -117,11 +121,10 @@ void handleoption(int option){
         searchcontact();
         break;
     case 4:
-        /*void delete contact*/
-        break;
+        deleteentry();
+        return;
     default:
-        invalidoption();
-        break;
+        return invalidoption();
     }
 }
 
@@ -229,7 +232,7 @@ void searchcontact()
             return;
         default:
             printf("INVALID INPUT\n");
-            searchcontact();
+            return searchcontact();
     }
 
 }
@@ -248,12 +251,12 @@ void serachbyphone()
             printf("STUDENT NAME - %s\n",students[i].name);
             printf("STUDENT ADDRESS - %s\n",students[i].address);
             printf("STUDENT EMAIL - %s\n",students[i].email);
-            searchcontact();
+            return searchcontact();
 
         }
     }
     printf("NO RESULT FOUND.\n");
-    searchcontact();
+    return searchcontact();
 
 }
 
@@ -272,10 +275,95 @@ void searchbyname()
             printf("STUDENT ADDRESS - %s\n",students[i].address);
             printf("STUDENT EMAIL - %s\n",students[i].email);
             printf("\n");
-            searchcontact();
+            return searchcontact();
 
         }
     }
     printf("NO RESULT FOUND.\n");
-    searchcontact();
+    return searchcontact();
+}
+
+void deleteentry()
+{
+    printf("|TO DELETE BY SEARCHING NAME ENTER 0|TO DELETE BY SEARCHING PHONE ENTER 1|TO RETURN TO MAIN MENU ENTER -1|\n");
+    int n=readint();
+    switch (n)
+    {
+        case 0:
+            return deletebyname();
+        case 1:
+            return deletebyphone();
+        case -1:
+            return;
+        default:
+            printf("INVALID INPUT\n");
+            return deleteentry();
+    }
+
+
+}
+
+void deletebyname()
+{
+    char studentname[20];
+    printf("ENTER STUDENT NAME - ");
+    scanf("%s",studentname);
+    printf("\nSEARCHING...\n\n");
+
+    int breaking;
+    for(int i=0;i<TOTAL_STUDENTS;i++)
+    {
+        if(strcmp(studentname,students[i].name)==0)
+        {
+            printf("STUDENT PHONE -+94%s\n",students[i].phone);
+            printf("STUDENT ADDRESS - %s\n",students[i].address);
+            printf("STUDENT EMAIL - %s\n",students[i].email);
+            printf("\n");
+            breaking=i;
+            return delete(breaking);
+
+        }
+    }
+    printf("NO RESULT FOUND.\n");
+    return deleteentry();
+}
+
+void delete(int breaking)
+{
+    printf("|TO CONTINUE ENTER 0|TO RETURN TO DELETE OPTION ENTER 1|\n");
+    int option=readint();
+    if (option==0){
+        for (int i=breaking;i<TOTAL_STUDENTS-1;i++){
+            students[i]=students[i+1];
+        }
+        TOTAL_STUDENTS-=1;
+        printf("DATA DELECTION SUCCESSFUL\n");
+        printf("\n");
+        return;
+    }
+    else{
+        return deleteentry();
+    }
+}
+
+void deletebyphone()
+{
+    char phonenumber[10];
+    printf("ENTER PHONE NUMBER - +94");
+    scanf("%s",phonenumber);
+    printf("\nSEARCHING...\n");
+
+    for(int i=0;i<TOTAL_STUDENTS;i++)
+    {
+        if(strcmp(phonenumber,students[i].phone)==0)
+        {
+            printf("STUDENT NAME - %s\n",students[i].name);
+            printf("STUDENT ADDRESS - %s\n",students[i].address);
+            printf("STUDENT EMAIL - %s\n",students[i].email);
+            return delete(i);
+
+        }
+    }
+    printf("NO RESULT FOUND.\n");
+    return deleteentry();
 }
