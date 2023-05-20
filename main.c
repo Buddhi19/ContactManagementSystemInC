@@ -31,13 +31,13 @@ void listallcontacts();
 void printspace(int);
 void addnewcontact();
 void searchcontact();
-void serachbyphone();
-void searchbyname();
 void deleteentry();
-void deletebyname();
+int toname();
 void delete(int);
-void deletebyphone();
+int tophone();
 void add2file();
+void editdetails();
+void edit(int);
 //++++++++++++++++++++++++++++++++++++++++ END OF LOCAL FUNCTIONS +++++++++++++++++++++++++++++++++++++++
 
 //=================================== DECLARATION OF DETAILS =============================================
@@ -53,9 +53,9 @@ void UI()
     printf("CONTACT MANAGMENT SYSTEM\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
 
-    printf("0. QUIT\n1. ADD A NEW CONTACT\n2. LIST ALL CONTACTS\n3. SEARCH FOR CONTACT\n4. DELETE A CONTACT\n5. TAKE THE DETAILS TO A TXT FILE\n");
+    printf("0. QUIT\n1. ADD A NEW CONTACT\n2. LIST ALL CONTACTS\n3. SEARCH FOR CONTACT\n4. EDIT DETAILS\n5. DELETE A CONTACT\n6. TAKE THE DETAILS TO A TXT FILE\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
-    printf("SELECT AN OPTION[0-5]\n");
+    printf("SELECT AN OPTION[0-6]\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
 
 }
@@ -122,9 +122,12 @@ void handleoption(int option){
         searchcontact();
         break;
     case 4:
-        deleteentry();
+        editdetails();
         return;
     case 5:
+        deleteentry();
+        return;
+    case 6:
         add2file();
         return;
     default:
@@ -229,11 +232,11 @@ void searchcontact()
         case -1:
             return;
         case 0:
-            serachbyphone();
-            return;
+            int phone=tophone();
+            return searchcontact();
         case 1:
-            searchbyname();
-            return;
+            int name=toname();
+            return searchcontact();
         default:
             printf("INVALID INPUT\n");
             return searchcontact();
@@ -241,62 +244,31 @@ void searchcontact()
 
 }
 
-void serachbyphone()
-{
-    char phonenumber[10];
-    printf("ENTER PHONE NUMBER - +94");
-    scanf("%s",phonenumber);
-    printf("\nSEARCHING...\n");
-
-    for(int i=0;i<TOTAL_STUDENTS;i++)
-    {
-        if(strcmp(phonenumber,students[i].phone)==0)
-        {
-            printf("STUDENT NAME - %s\n",students[i].name);
-            printf("STUDENT ADDRESS - %s\n",students[i].address);
-            printf("STUDENT EMAIL - %s\n",students[i].email);
-            return searchcontact();
-
-        }
-    }
-    printf("NO RESULT FOUND.\n");
-    return searchcontact();
-
-}
-
-void searchbyname()
-{
-    char studentname[20];
-    printf("ENTER STUDENT NAME - ");
-    scanf("%s",studentname);
-    printf("\nSEARCHING...\n\n");
-
-    for(int i=0;i<TOTAL_STUDENTS;i++)
-    {
-        if(strcmp(studentname,students[i].name)==0)
-        {
-            printf("STUDENT PHONE -+94%s\n",students[i].phone);
-            printf("STUDENT ADDRESS - %s\n",students[i].address);
-            printf("STUDENT EMAIL - %s\n",students[i].email);
-            printf("\n");
-            return searchcontact();
-
-        }
-    }
-    printf("NO RESULT FOUND.\n");
-    return searchcontact();
-}
-
 void deleteentry()
 {
+    printf("-----------------------------------------------------------------------------------------------------------------\n");
+    printf("DELETE AN ENTRY\n");
+    printf("-----------------------------------------------------------------------------------------------------------------\n");
     printf("|TO DELETE BY SEARCHING NAME ENTER 0|TO DELETE BY SEARCHING PHONE ENTER 1|TO RETURN TO MAIN MENU ENTER -1|\n");
     int n=readint();
     switch (n)
     {
         case 0:
-            return deletebyname();
+            int breaking1=toname();
+            if(breaking1!=-1){
+                return delete(breaking1);
+            }
+            else{
+                return deleteentry();
+            }
         case 1:
-            return deletebyphone();
+            int breaking2=tophone();
+            if(breaking2!=-1){
+                return delete(breaking2);
+            }
+            else{
+                return deleteentry();
+            }
         case -1:
             return;
         default:
@@ -307,7 +279,7 @@ void deleteentry()
 
 }
 
-void deletebyname()
+int toname()
 {
     char studentname[20];
     printf("ENTER STUDENT NAME - ");
@@ -324,12 +296,13 @@ void deletebyname()
             printf("STUDENT EMAIL - %s\n",students[i].email);
             printf("\n");
             breaking=i;
-            return delete(breaking);
+            return breaking;
 
         }
     }
     printf("NO RESULT FOUND.\n");
-    return deleteentry();
+    printf("-----------------------------------------------------------------------------------------------------------------\n");
+    return -1;
 }
 
 void delete(int breaking)
@@ -342,6 +315,7 @@ void delete(int breaking)
         }
         TOTAL_STUDENTS-=1;
         printf("DATA DELECTION SUCCESSFUL\n");
+        printf("-----------------------------------------------------------------------------------------------------------------\n");  
         printf("\n");
         return;
     }
@@ -350,12 +324,12 @@ void delete(int breaking)
     }
 }
 
-void deletebyphone()
+int tophone()
 {
     char phonenumber[10];
     printf("ENTER PHONE NUMBER - +94");
     scanf("%s",phonenumber);
-    printf("\nSEARCHING...\n");
+    printf("\nSEARCHING...\n\n");
 
     for(int i=0;i<TOTAL_STUDENTS;i++)
     {
@@ -364,12 +338,14 @@ void deletebyphone()
             printf("STUDENT NAME - %s\n",students[i].name);
             printf("STUDENT ADDRESS - %s\n",students[i].address);
             printf("STUDENT EMAIL - %s\n",students[i].email);
-            return delete(i);
+            printf("\n");
+            return i;
 
         }
     }
     printf("NO RESULT FOUND.\n");
-    return deleteentry();
+    printf("-----------------------------------------------------------------------------------------------------------------\n");
+    return -1;
 }
 
 
@@ -425,5 +401,64 @@ void add2file()
     }
     fprintf(fptr,"-----------------------------------------------------------------------------------------------------------------\n");
     fclose(fptr);
+    printf("OPERATION SUCCESSFUL\n");
+    printf("-----------------------------------------------------------------------------------------------------------------\n");
+    
 
+}
+
+void editdetails()
+{
+    printf("-----------------------------------------------------------------------------------------------------------------\n");
+    printf("CHANGE DETAILS\n");
+    printf("-----------------------------------------------------------------------------------------------------------------\n");
+    printf("|TO CHANGE DETAILS BY SEARCHING NAME ENTER 0|TO CHANGE DETAILS BY SEARCHING PHONE ENTER 1|TO RETURN TO MAIN MENU ENTER -1|\n");
+    int n=readint();
+    switch (n)
+    {
+        case 0:
+            int sim1=toname();
+            if (sim1!=-1){
+                return edit(sim1);
+            }
+            else{
+                return editdetails();
+            }
+        case 1:
+            int sim2=tophone();
+            if(sim2!=-1){
+                return edit(sim2);
+            }
+            else{
+                return editdetails();
+            }
+        case -1:
+            return;
+        default:
+            printf("INVALID INPUT\n");
+            return editdetails();
+    }
+}
+
+
+void edit(int breaking)
+{
+    printf("|TO CHANGE PHONE ENTER 0|TO CHANGE NAME ENTER 1|TO CHANGE ADDRESS ENTER 2|TO CHANGE EMAIL ENTER 3|TO RETURN TO MAIN MENU ENTER -1|\n");
+    int n=readint();
+    switch (n)
+    {
+        case 0:
+            return ;
+        case 1:
+            return ;
+        case 2:
+            return ;
+        case 3:
+            return ;
+        case -1:
+            return;
+        default:
+            printf("INVALID INPUT\n");
+            return edit(breaking);
+    }
 }
