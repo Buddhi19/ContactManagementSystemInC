@@ -38,6 +38,9 @@ int tophone();
 void add2file();
 void editdetails();
 void edit(int);
+void changephonenumber(int);
+void changeemail(int);
+void changeaddress(int);
 //++++++++++++++++++++++++++++++++++++++++ END OF LOCAL FUNCTIONS +++++++++++++++++++++++++++++++++++++++
 
 //=================================== DECLARATION OF DETAILS =============================================
@@ -109,6 +112,7 @@ void handleoption(int option){
     switch (option)
     {
     case 0:
+        printf("-----------------------------------------------------------------------------------------------------------------\n");
         printf("END OF THE SESSION\n");
         printf("-----------------------------------------------------------------------------------------------------------------\n");
         exit(0);
@@ -443,22 +447,53 @@ void editdetails()
 
 void edit(int breaking)
 {
-    printf("|TO CHANGE PHONE ENTER 0|TO CHANGE NAME ENTER 1|TO CHANGE ADDRESS ENTER 2|TO CHANGE EMAIL ENTER 3|TO RETURN TO MAIN MENU ENTER -1|\n");
+    printf("|TO CHANGE PHONE ENTER 0|TO CHANGE ADDRESS ENTER 1|TO CHANGE EMAIL ENTER 2|TO RETURN TO MAIN MENU ENTER -1|\n");
     int n=readint();
     switch (n)
     {
         case 0:
-            return ;
+            return changephonenumber(breaking);
         case 1:
-            return ;
+            return changeaddress(breaking);
         case 2:
-            return ;
-        case 3:
-            return ;
+            return changeemail(breaking);
         case -1:
             return;
         default:
             printf("INVALID INPUT\n");
             return edit(breaking);
     }
+}
+
+void changephonenumber(int breaking)
+{
+    printf("PREVIOUS PHONE - +94%s\n",students[breaking].phone);
+    printf("ENTER NEW PHONE - +94");
+    char phone[10];
+    scanf("%s",phone);
+    strcpy(students[breaking].phone,phone);
+    printf("\nPHONE CHANGED SUCCESSFULLY\n");
+    return edit(breaking);
+}
+
+void changeaddress(int breaking)
+{
+    printf("PREVIOUS ADDRESS - %s\n",students[breaking].address);
+    printf("NEW ADDRESS - \n");
+    char address[50];
+    scanf(" %[^\n]s",address);
+    strcpy(students[breaking].address,address);
+    printf("ADDRESS CHANGED SUCCESSFULLY\n");
+    return edit(breaking);
+}
+
+void changeemail(int breaking)
+{
+    printf("PREVIOUS EMAIL - %s\n",students[breaking].email);
+    printf("NEW EMAIL -");
+    char email[30];
+    scanf("%s",email);
+    strcpy(students[breaking].email,email);
+    printf("\nEMAIL CHANGED SUCCESSFULLY\n");
+    return edit(breaking);
 }
