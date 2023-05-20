@@ -6,6 +6,8 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+#include "totxtfile.h"
+
 //+++++++++++++++++++++++++++++++++++++++++ END OF HEADER FILES +++++++++++++++++++++++++++++++++++++++++
 
 // ==================================== DECLARATION OF STRUCTURES ========================================
@@ -26,7 +28,6 @@ int readint();
 char readchar();
 int char2int(char);
 void handleoption(int);
-void invalidoption();
 void listallcontacts();
 void printspace(int);
 void addnewcontact();
@@ -35,7 +36,6 @@ void deleteentry();
 int toname();
 void delete(int);
 int tophone();
-void add2file();
 void editdetails();
 void edit(int);
 void changephonenumber(int);
@@ -132,18 +132,12 @@ void handleoption(int option){
         deleteentry();
         return;
     case 6:
-        add2file();
+        add2file(students,TOTAL_STUDENTS);
         return;
     default:
-        return invalidoption();
+        printf("PLEASE ENTER A VALID OPTION\n");
+        return;
     }
-}
-
-void invalidoption()
-{
-    printf("PLEASE ENTER A VALID OPTION\n");
-    int s=readint();
-    handleoption(s);
 }
 
 void listallcontacts()
@@ -350,65 +344,6 @@ int tophone()
     printf("NO RESULT FOUND.\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
     return -1;
-}
-
-
-
-void add2file()
-{
-    FILE *fptr;
-    
-    fptr=fopen("D:\\Semester 4\\CO253 - Introduction to Programming and Networking for Electrical Engineering\\Project\\ContactManagementSystemInC\\output.txt","w");
-
-    fprintf(fptr,"LIST OF ALL CONTACTS\n");
-    fprintf(fptr,"-----------------------------------------------------------------------------------------------------------------\n");
-    fprintf(fptr,"|   PHONE   ");
-    fprintf(fptr,"|        NAME       ");
-    fprintf(fptr,"|                       ADDRESS                   ");
-    fprintf(fptr,"|              EMAIL          |\n");
-    fprintf(fptr,"-----------------------------------------------------------------------------------------------------------------\n");
-
-
-    for(int i=0;i<TOTAL_STUDENTS;i++)
-    {
-        fprintf(fptr,"|");
-        fprintf(fptr," %s",students[i].phone);
-        int phonelength=10-strlen(students[i].phone);
-        for(int k=0;k<phonelength;k++){
-            fprintf(fptr," ");
-        }
-
-        fprintf(fptr,"|");
-        fprintf(fptr," %s",students[i].name);
-        int namelength=18-strlen(students[i].name);
-        for(int k=0;k<namelength;k++){
-            fprintf(fptr," ");
-        }
-
-        fprintf(fptr,"|");
-        fprintf(fptr," %s",students[i].address);
-        int addresslength=48-strlen(students[i].address);
-        for(int k=0;k<addresslength;k++){
-            fprintf(fptr," ");
-        }
-
-        fprintf(fptr,"|");
-        fprintf(fptr," %s",students[i].email);
-        int emaillength=28-strlen(students[i].email);
-        for(int k=0;k<emaillength;k++){
-            fprintf(fptr," ");
-        }
-
-        fprintf(fptr,"|\n");
-
-
-    }
-    fprintf(fptr,"-----------------------------------------------------------------------------------------------------------------\n");
-    fclose(fptr);
-    printf("OPERATION SUCCESSFUL\n");
-    printf("-----------------------------------------------------------------------------------------------------------------\n");
-    
-
 }
 
 void editdetails()
