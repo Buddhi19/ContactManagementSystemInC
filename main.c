@@ -10,6 +10,7 @@
 #include "totxtfile.h"
 #include "savetolocal.h"
 #include "readdata.h"
+#include "authenticate.h"
 //+++++++++++++++++++++++++++++++++++++++++ END OF HEADER FILES +++++++++++++++++++++++++++++++++++++++++
 
 // ==================================== DECLARATION OF STRUCTURES ========================================
@@ -70,6 +71,7 @@ void UI()
 
 int main()
 {
+    authentication();
     update(students,&TOTAL_STUDENTS);
     while(1)
     {
