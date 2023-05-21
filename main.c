@@ -9,6 +9,7 @@
 //=======================================IMPORTING LOCAL HEADERS ========================================
 #include "totxtfile.h"
 #include "savetolocal.h"
+#include "readdata.h"
 //+++++++++++++++++++++++++++++++++++++++++ END OF HEADER FILES +++++++++++++++++++++++++++++++++++++++++
 
 // ==================================== DECLARATION OF STRUCTURES ========================================
@@ -69,6 +70,7 @@ void UI()
 
 int main()
 {
+    update(students,&TOTAL_STUDENTS);
     while(1)
     {
         UI();
