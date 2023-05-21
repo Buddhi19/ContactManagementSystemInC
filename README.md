@@ -1,5 +1,6 @@
 # ContactManagementSystemInC
 CO253- Mini Project Contact Management System
 ## Architecture Diagram
-![Blank diagram](https://github.com/Buddhi19/ContactManagementSystemInC/assets/119914594/0d1dcb04-b2ec-4ee9-a801-7cf758a33da5)
-
+<p align="center">
+<img src="https://github.com/Buddhi19/ContactManagementSystemInC/assets/119914594/99d3ad49-ea45-4dfc-89da-ebcd3cb7240d" width="600">
+</p>
