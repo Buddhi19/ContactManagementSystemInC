@@ -15,7 +15,7 @@ void add2file(contact_file students[],int TOTAL_STUDENTS)
 {
     FILE *fptr;
     
-    fptr=fopen("D:\\Semester 4\\CO253 - Introduction to Programming and Networking for Electrical Engineering\\Project\\ContactManagementSystemInC\\output.txt","w");
+    fptr=fopen("./output.txt","w");
 
     fprintf(fptr,"LIST OF ALL CONTACTS\n");
     fprintf(fptr,"-----------------------------------------------------------------------------------------------------------------\n");
