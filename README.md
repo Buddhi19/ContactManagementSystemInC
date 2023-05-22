@@ -17,4 +17,5 @@
      5. DELETE DATA
      6. SEARCH DATA
      7. EXPORT AS A TXT FILE
+     8. AUTHENTICATION
      
