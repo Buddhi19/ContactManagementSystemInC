@@ -11,6 +11,7 @@
 #include "savetolocal.h"
 #include "readdata.h"
 #include "authenticate.h"
+#include "validatemail.h"
 //+++++++++++++++++++++++++++++++++++++++++ END OF HEADER FILES +++++++++++++++++++++++++++++++++++++++++
 
 // ==================================== DECLARATION OF STRUCTURES ========================================
@@ -28,6 +29,7 @@ typedef struct
 
 //==================================== DECLARATION OF LOCAL FUNCTIONS ===================================
 int readint();
+int charint();
 char readchar();
 int char2int(char);
 void handleoption(int);
@@ -76,6 +78,7 @@ int main()
     while(1)
     {
         UI();
+
         handleoption(readint());
     }
     return 0;
@@ -104,6 +107,14 @@ char readchar()
     char s;
     scanf("%c",&s);
     return s;
+}
+
+int charint()
+{
+    char input;
+    scanf("%c",&input);
+    int out=input-48;
+    return out;
 }
 
 void printspace(int n)
@@ -219,15 +230,26 @@ void addnewcontact()
     strcpy(students[TOTAL_STUDENTS].address,studentaddress);
     printf("\n");
 
-    printf("ENTER YOUR EMAIL - ");
-    char studentemail[30];
-    scanf("%s",studentemail);
-    strcpy(students[TOTAL_STUDENTS].email,studentemail);
+    addemail();
     printf("\n");
     TOTAL_STUDENTS+=1;
     printf("-----------------------------------------------------------------------------------------------------------------\n");
     printf("DATA ENTERING SUCCESSFUL\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
+}
+
+
+void addemail()
+{
+    printf("ENTER YOUR EMAIL - ");
+    char studentemail[30];
+    scanf(" %[^\n]s",studentemail);
+    if(checkmail(studentemail)){
+        strcpy(students[TOTAL_STUDENTS].email,studentemail);
+        return;
+    }
+    printf("\nPLEASE ENTER A VALID EMAIL\n\n");
+    return addemail();
 }
 /*
 SEARCH FOR CONTACTS
