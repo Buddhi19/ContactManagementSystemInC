@@ -10,9 +10,9 @@
 #include "totxtfile.h"
 #include "savetolocal.h"
 #include "readdata.h"
+#include "outputhandler.h"
 #include "authenticate.h"
 #include "validatemail.h"
-#include "outputhandler.h"
 //+++++++++++++++++++++++++++++++++++++++++ END OF HEADER FILES +++++++++++++++++++++++++++++++++++++++++
 
 // ==================================== DECLARATION OF STRUCTURES ========================================
@@ -493,7 +493,13 @@ void changeemail(int breaking)
     printf("NEW EMAIL -");
     char email[30];
     scanf(" %[^\n]s",email);
-    strcpy(students[breaking].email,email);
-    printf("\nEMAIL CHANGED SUCCESSFULLY\n");
-    return edit(breaking);
+    if (checkmail(email))
+    {
+        strcpy(students[breaking].email,email);
+        printf("\nEMAIL CHANGED SUCCESSFULLY\n");
+        return edit(breaking);
+
+    }
+    printf("\nPLEASE ENTER A VALID EMAIL\n\n");
+    return changeemail(breaking);
 }
