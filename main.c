@@ -12,6 +12,7 @@
 #include "readdata.h"
 #include "authenticate.h"
 #include "validatemail.h"
+#include "outputhandler.h"
 //+++++++++++++++++++++++++++++++++++++++++ END OF HEADER FILES +++++++++++++++++++++++++++++++++++++++++
 
 // ==================================== DECLARATION OF STRUCTURES ========================================
@@ -50,21 +51,27 @@ void changeaddress(int);
 
 //=================================== DECLARATION OF DETAILS =============================================
 
-contact_t students[100];
+contact_t students[10000];
 int TOTAL_STUDENTS=0;
 //+++++++++++++++++++++++++++++++++++ END OF DECLARATION OF DETAILS ++++++++++++++++++++++++++++++++++++++
 
 //========================================= MAIN MENU ==============================================================================================================
 void UI()
 {
-    printf("-----------------------------------------------------------------------------------------------------------------\n");
-    printf("CONTACT MANAGMENT SYSTEM\n");
-    printf("-----------------------------------------------------------------------------------------------------------------\n");
+    centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
+    centeredprint("CONTACT MANAGMENT SYSTEM\n");
+    centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
 
-    printf("0. QUIT\n1. ADD A NEW CONTACT\n2. LIST ALL CONTACTS\n3. SEARCH FOR CONTACT\n4. EDIT DETAILS\n5. DELETE A CONTACT\n6. TAKE THE DETAILS TO A TXT FILE\n");
-    printf("-----------------------------------------------------------------------------------------------------------------\n");
-    printf("SELECT AN OPTION[0-6]\n");
-    printf("-----------------------------------------------------------------------------------------------------------------\n");
+    centeredprint("0. QUIT\n");
+    centeredprint("1. ADD A NEW CONTACT\n");
+    centeredprint("2. LIST ALL CONTACTS\n");
+    centeredprint("3. SEARCH FOR CONTACT\n");
+    centeredprint("4. EDIT DETAILS\n");
+    centeredprint("5. DELETE A CONTACT\n");
+    centeredprint("6. TAKE THE DETAILS TO A TXT FILE\n");
+    centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
+    centeredprint("SELECT AN OPTION[0-6]\n");
+    centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
 
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -73,6 +80,7 @@ void UI()
 
 int main()
 {
+    system("clear");
     authentication();
     update(students,&TOTAL_STUDENTS);
     while(1)
@@ -80,6 +88,7 @@ int main()
         UI();
 
         handleoption(readint());
+
     }
     return 0;
 }
@@ -123,11 +132,13 @@ void printspace(int n)
         printf(" ");
     }
 }
+
 // +++++++++++++++++++++++++++++++++++++++++++ END OF BASIC FUNCTIONS ++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 //============================================ HANDLING ALL OPTIONS ====================================================
 void handleoption(int option){
+    system("clear");
     switch (option)
     {
     case 0:
@@ -199,6 +210,10 @@ void listallcontacts()
 
     }
     printf("-----------------------------------------------------------------------------------------------------------------\n");
+    printf("PRESS ANY KEY TO RETURN TO THE MAIN MENU\n");
+    char s[4];
+    scanf("%s",s);
+    system("clear");
 
 
     
@@ -236,6 +251,10 @@ void addnewcontact()
     printf("-----------------------------------------------------------------------------------------------------------------\n");
     printf("DATA ENTERING SUCCESSFUL\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
+    printf("PRESS ANY KEY TO RETURN TO THE MAIN MENU\n");
+    char s[4];
+    scanf("%s",s);
+    system("clear");
 }
 
 
@@ -264,6 +283,7 @@ void searchcontact()
     switch (n)
     {
         case -1:
+            system("clear");
             return;
         case 0:
             int phone=tophone();
@@ -306,6 +326,7 @@ void deleteentry()
                 return deleteentry();
             }
         case -1:
+            system("clear");
             return;
         default:
             printf("INVALID INPUT\n");
@@ -357,7 +378,7 @@ void delete(int breaking)
         printf("DATA DELECTION SUCCESSFUL\n");
         printf("-----------------------------------------------------------------------------------------------------------------\n");  
         printf("\n");
-        return;
+        return deleteentry();
     }
     else{
         return deleteentry();
@@ -414,6 +435,7 @@ void editdetails()
                 return editdetails();
             }
         case -1:
+            system("clear");
             return;
         default:
             printf("INVALID INPUT\n");
@@ -435,6 +457,7 @@ void edit(int breaking)
         case 2:
             return changeemail(breaking);
         case -1:
+            system("clear");
             return;
         default:
             printf("INVALID INPUT\n");
@@ -460,7 +483,7 @@ void changeaddress(int breaking)
     char address[50];
     scanf(" %[^\n]s",address);
     strcpy(students[breaking].address,address);
-    printf("ADDRESS CHANGED SUCCESSFULLY\n");
+    printf("\nADDRESS CHANGED SUCCESSFULLY\n");
     return edit(breaking);
 }
 
@@ -469,7 +492,7 @@ void changeemail(int breaking)
     printf("PREVIOUS EMAIL - %s\n",students[breaking].email);
     printf("NEW EMAIL -");
     char email[30];
-    scanf("%s",email);
+    scanf(" %[^\n]s",email);
     strcpy(students[breaking].email,email);
     printf("\nEMAIL CHANGED SUCCESSFULLY\n");
     return edit(breaking);

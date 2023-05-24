@@ -14,7 +14,7 @@ typedef struct
 
 void endsession(contact_save students[],int TOTAL_STUDENTS)
 {
-    printf("|TO SAVE ADDED DATA LOCALLY ENTER 0|TO END THE SESSION WITHOUT SAVING DATA ENTER 1\n");
+    printf("|TO SAVE ADDED DATA LOCALLY ENTER 0|TO END THE SESSION WITHOUT SAVING DATA ENTER 1|\n");
     int n;
     scanf("%d",&n);
     if (n==0){

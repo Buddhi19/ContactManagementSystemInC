@@ -21,13 +21,14 @@ void authentication()
         if(strcmp(users[i],username)==0){
             if(strcmp(passwords[i],password)==0){
                 printf("\n");
+                system("clear");
                 return;
             }
         }
     }
+    system("clear");
     printf("\nWRONG USERNAME PASSWORD COMBINATION PLEASE TRY AGAIN\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
-
     return authentication();
 
 }

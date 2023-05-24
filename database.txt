@@ -1,8 +1,8 @@
-4
+3
 701960880
 Buddhi
 Kandy Sri Lanka
-buddhi2@gmail.com
+buddhi@gmail.com
 722154923
 Scoobydoo
 Colombo Sri Lanka
@@ -11,7 +11,3 @@ scoob@gmail.com
 Shaggy
 Kurunagala Sri Lanka
 shag@gmail.com
-772750965
-Tharinda
-Kandy Sri Lanka
-tharinda@gmail.com
