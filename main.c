@@ -31,9 +31,10 @@ typedef struct
 //==================================== DECLARATION OF LOCAL FUNCTIONS ===================================
 int readint();
 int charint();
+char readmain();
 char readchar();
 int char2int(char);
-void handleoption(int);
+void handleoption(char);
 void listallcontacts();
 void printspace(int);
 void addnewcontact();
@@ -47,6 +48,7 @@ void edit(int);
 void changephonenumber(int);
 void changeemail(int);
 void changeaddress(int);
+void continous();
 //++++++++++++++++++++++++++++++++++++++++ END OF LOCAL FUNCTIONS +++++++++++++++++++++++++++++++++++++++
 
 //=================================== DECLARATION OF DETAILS =============================================
@@ -62,13 +64,13 @@ void UI()
     centeredprint("CONTACT MANAGMENT SYSTEM\n");
     centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
 
-    centeredprint("0. QUIT\n");
-    centeredprint("1. ADD A NEW CONTACT\n");
-    centeredprint("2. LIST ALL CONTACTS\n");
-    centeredprint("3. SEARCH FOR CONTACT\n");
-    centeredprint("4. EDIT DETAILS\n");
-    centeredprint("5. DELETE A CONTACT\n");
-    centeredprint("6. TAKE THE DETAILS TO A TXT FILE\n");
+    alignleft("0. QUIT\n");
+    alignleft("1. ADD A NEW CONTACT\n");
+    alignleft("2. LIST ALL CONTACTS\n");
+    alignleft("3. SEARCH FOR CONTACT\n");
+    alignleft("4. EDIT DETAILS\n");
+    alignleft("5. DELETE A CONTACT\n");
+    alignleft("6. EXPORT AS A TXT FILE\n");
     centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
     centeredprint("SELECT AN OPTION[0-6]\n");
     centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
@@ -87,7 +89,7 @@ int main()
     {
         UI();
 
-        handleoption(readint());
+        handleoption(readmain());
 
     }
     return 0;
@@ -103,6 +105,13 @@ int readint()
     int integerinput;
     scanf("%d",&integerinput);
     return integerinput;
+}
+
+char readmain()
+{
+    char s[4];
+    scanf("%s",s);
+    return s[0];
 }
 
 int char2int(char s)
@@ -137,29 +146,29 @@ void printspace(int n)
 
 
 //============================================ HANDLING ALL OPTIONS ====================================================
-void handleoption(int option){
+void handleoption(char option){
     system("clear");
     switch (option)
     {
-    case 0:
+    case '0':
         endsession(students,TOTAL_STUDENTS);
         exit(0);
-    case 1:
+    case '1':
         addnewcontact();
         return;
-    case 2:
+    case '2':
         listallcontacts();
         return;
-    case 3:
+    case '3':
         searchcontact();
         break;
-    case 4:
+    case '4':
         editdetails();
         return;
-    case 5:
+    case '5':
         deleteentry();
         return;
-    case 6:
+    case '6':
         add2file(students,TOTAL_STUDENTS);
         return;
     default:
@@ -251,12 +260,25 @@ void addnewcontact()
     printf("-----------------------------------------------------------------------------------------------------------------\n");
     printf("DATA ENTERING SUCCESSFUL\n");
     printf("-----------------------------------------------------------------------------------------------------------------\n");
-    printf("PRESS ANY KEY TO RETURN TO THE MAIN MENU\n");
+    continous();
+}
+
+void continous()
+{
+    printf("| ENTER 0 TO RETURN TO THE MAIN MENU| ENTER 1 TO ADD ANOTHER CONTACT |\n");
     char s[4];
     scanf("%s",s);
     system("clear");
+    switch (s[0])
+    {
+        case '0':
+            return;
+        case '1':
+            return addnewcontact();
+        default:
+            return;
+    }
 }
-
 
 void addemail()
 {

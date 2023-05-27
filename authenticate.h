@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+char* users[2]={"buddhi","admin"};
+char* passwords[2]={"admin","buddhi"};
 
 void tag()
 {
@@ -16,12 +18,10 @@ void tag()
 
 void flow()
 {
-    char* users[2]={"buddhi","admin"};
-    char* passwords[2]={"admin","buddhi"};
-    printf("USERNAME - ");
+    alignleft("USERNAME - ");
     char username[10];
     scanf("%s",username);
-    printf("PASSWORD - ");
+    alignleft("PASSWORD - ");
     char password[10];
     scanf("%s",password);
 
