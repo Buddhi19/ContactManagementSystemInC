@@ -71,8 +71,9 @@ void UI()
     alignleft("4. EDIT DETAILS\n");
     alignleft("5. DELETE A CONTACT\n");
     alignleft("6. EXPORT AS A TXT FILE\n");
+    alignleft("7. ADD USER\n");
     centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
-    centeredprint("SELECT AN OPTION[0-6]\n");
+    centeredprint("SELECT AN OPTION[0-7]\n");
     centeredprint("-----------------------------------------------------------------------------------------------------------------\n");
 
 }
@@ -171,8 +172,11 @@ void handleoption(char option){
     case '6':
         add2file(students,TOTAL_STUDENTS);
         return;
+    case '7':
+        adduser();
+        return;
     default:
-        printf("PLEASE ENTER A VALID OPTION\n");
+        printf("PLEASE ENTER A VALID OPTION!________\n");
         return;
     }
 }
