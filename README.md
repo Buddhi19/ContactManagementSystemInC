@@ -18,4 +18,14 @@
      6. SEARCH DATA
      7. EXPORT AS A TXT FILE
      8. AUTHENTICATION
-     
+    
+## UI
+<p align="center">
+<img src="https://github.com/Buddhi19/ContactManagementSystemInC/assets/119914594/9532cf84-2d3e-4daa-bcb6-55d024eab74e" width="1000">
+</p>
+
+## WELCOME UI
+
+<p align="center">
+<img src="https://github.com/Buddhi19/ContactManagementSystemInC/assets/119914594/2be32779-e92f-4474-b2d5-6d0b2f59152c" width="1000">
+</p>
