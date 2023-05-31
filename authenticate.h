@@ -4,9 +4,9 @@
 #include <stdbool.h>
 #include <time.h>
 
-char* users[5]={"buddhi","admin"};
-char* passwords[5]={"admin","buddhi"};
-int USERS=2;
+
+char* users[2]={"admin","buddhi"};
+char* passwords[2]={"admin","admin"};
 
 void delay(int number_of_seconds) {
     int milli_seconds = CLOCKS_PER_SEC * number_of_seconds;
@@ -53,32 +53,8 @@ void flow()
     return flow();
 
 }
-
 void authentication()
 {
     tag();
     flow();
-}
-
-void adduser()
-{
-    printf("-----------------------------------------------------------------------------------------------------------------\n");
-    printf("ADD NEW USER\n");
-    printf("-----------------------------------------------------------------------------------------------------------------\n");
-
-    printf("USERNAME - ");
-    char username[30];
-    scanf("%s",username);
-    printf("PASSWORD - ");
-    char password[20];
-    scanf("%s",password);
-    
-    users[USERS]=username;
-    passwords[USERS]=password;
-    USERS++;
-    printf("NEW USER ADDED\n");
-    printf("-----------------------------------------------------------------------------------------------------------------\n");
-    delay(3);
-    system("clear");
-    
 }

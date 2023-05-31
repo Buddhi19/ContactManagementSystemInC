@@ -18,6 +18,7 @@ void update(contact_read students[],int* TOTAL_STUDENTS)
 
     if (fptr==NULL){
         *TOTAL_STUDENTS=0;
+        fclose(fptr);
         return;
     }
     int n;
@@ -41,4 +42,28 @@ void update(contact_read students[],int* TOTAL_STUDENTS)
         fscanf(fptr,"%s",email);
         strcpy(students[i].email,email);
     }
+    fclose(fptr);
+
+}
+
+void updateusers(char users[],char passwords[],int* USERS)
+{
+    FILE *fptr1;
+    fptr1 = fopen("./users.txt","r");
+
+    if (fptr1==NULL){
+        *USERS=0;
+        fclose(fptr1);
+        return;
+    }
+    int n;
+    fscanf(fptr1,"%d",&n);
+    *USERS=n;
+    for(int i=0;i<*USERS;i++)
+    {
+        scanf("%s",users[i]);
+        scanf("%s",passwords[i]);
+    }
+    fclose(fptr1);
+
 }
